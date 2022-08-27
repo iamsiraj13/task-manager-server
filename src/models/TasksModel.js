@@ -5,7 +5,7 @@ const taskDataModel = mongoose.Schema({
     description:{type:String},
     status:{type:String},
     email:{type:String}, 
-    createdDate:{type:Date,default:Data.now()},
+    createdDate:{type:Date,default:Date.now()},
 },{versionKey:false});
 
 const TasksModel = mongoose.model("tasks", taskDataModel);
