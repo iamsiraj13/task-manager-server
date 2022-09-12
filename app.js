@@ -38,7 +38,7 @@ app.use(bodyParser.json());
 
 // Mongo DB Database Connection
 const URL =
-  "mongodb+srv://<username>:<password>@cluster0.4tdkj.mongodb.net/?retryWrites=true&w=majority";
+  "mongodb+srv://<username>:<password>@cluster0.4tdkj.mongodb.net/?retryWrites=true&w=majority/task";
 
 let OPTION = { user: "iamsiraj13", pass: "iamsiraj13", autoIndex: true };
 
