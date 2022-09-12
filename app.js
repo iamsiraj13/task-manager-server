@@ -37,12 +37,12 @@ app.use(express.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
 // Mongo DB Database Connection
-// const URL =
-//   "mongodb+srv://<username>:<password>@cluster0.4tdkj.mongodb.net/?retryWrites=true&w=majority";
+const URL =
+  "mongodb+srv://<username>:<password>@cluster0.4tdkj.mongodb.net/?retryWrites=true&w=majority";
 
-const URL = "mongodb://localhost:27017/task";
+// const URL = "mongodb://localhost:27017/task";
 
-let OPTION = { autoIndex: true };
+let OPTION = { user: "iamsiraj13", pass: "iamsiraj13", autoIndex: true };
 
 mongoose.connect(URL, OPTION, (error) => {
   if (error) {
