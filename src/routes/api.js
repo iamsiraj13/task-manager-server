@@ -11,6 +11,8 @@ const {
   profileUpdate,
   getProfile,
   recoverVerifyEmail,
+  RecoverVerifyOTP,
+  RecoverResetPass,
 } = require("../controllers/UserController");
 const AuthVerify = require("../middleware/AuthVerify");
 
@@ -30,5 +32,8 @@ router.get("/taskCountByStatus", AuthVerify, taskCountByStatus);
 router.get("/profile", AuthVerify, getProfile);
 
 router.get("/recoverVerifyEmail/:email", recoverVerifyEmail);
+router.get("/recoverVerifyOTP/:email/:otp", RecoverVerifyOTP);
+
+router.post("/RecoverResetPass", RecoverResetPass);
 
 module.exports = router;

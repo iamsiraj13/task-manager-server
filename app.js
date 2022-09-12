@@ -6,7 +6,6 @@ const routes = require("./src/routes/api");
 
 // security middleware import
 
-const ratelimit = require("express-rate-limit");
 const helmet = require("helmet");
 const mongoSanitize = require("express-mongo-sanitize");
 const xss = require("xss-clean");
@@ -38,12 +37,14 @@ app.use(express.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
 // Mongo DB Database Connection
-const URL = "mongodb://127.0.0.1:27017/task";
-const option = {
-  autoIndex: true,
-};
+// const URL =
+//   "mongodb+srv://<username>:<password>@cluster0.4tdkj.mongodb.net/?retryWrites=true&w=majority";
 
-mongoose.connect(URL, option, (error) => {
+const URL = "mongodb://localhost:27017/task";
+
+let OPTION = { autoIndex: true };
+
+mongoose.connect(URL, OPTION, (error) => {
   if (error) {
     console.log(error);
   } else {

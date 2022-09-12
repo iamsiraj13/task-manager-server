@@ -1,6 +1,6 @@
 const UsersModel = require("../models/UsersModel");
 const jwt = require("jsonwebtoken");
-const OTPmodel = require("../models/OPTmodel");
+const OTPmodel = require("../models/OTPmodel");
 const SendEmailUtility = require("../utility/SendEmailUtility");
 
 // registration
@@ -101,23 +101,96 @@ exports.recoverVerifyEmail = async (req, res) => {
     if (userCount.length > 0) {
       let createOTP = await OTPmodel.create({
         email: email,
-        otpCode: otpCode,
+        otp: otpCode,
       });
 
       let SendEmail = await SendEmailUtility(
         email,
-        "Your pin code is:",
-        otpCode,
-        "Task Manager Pin varification"
+        "Your PIN Code is= " + otpCode,
+        "Task Manager PIN Verification"
       );
-      res.status(200).json({ message: "success", data: SendEmail });
+      res.status(200).json({ status: "success", data: SendEmail });
     } else {
-      res.status(400).json({ message: "fail", data: "No User Found" });
+      res.status(200).json({ status: "fail", data: "No User Found" });
     }
   } catch (err) {
-    res.status(400).json({ message: "fail", data: err });
+    res.status(400).json({ status: "fail", data: err });
   }
 
   // send otp
   // insert otp
+};
+
+// otp code verify
+
+exports.RecoverVerifyOTP = async (req, res) => {
+  let email = req.params.email;
+  let otpCode = req.params.otp;
+
+  try {
+    let otpCount = await OTPmodel.aggregate([
+      {
+        $match: {
+          email: email,
+          otp: otpCode,
+          status: 0,
+        },
+      },
+      {
+        $count: "total",
+      },
+    ]);
+
+    if (otpCount.length > 0) {
+      let updateOTP = await OTPmodel.updateOne(
+        {
+          email: email,
+          otp: otpCode,
+          status: 0,
+        },
+        {
+          email: email,
+          otp: otpCode,
+          status: 1,
+        }
+      );
+
+      res.status(200).json({ status: "success", data: updateOTP });
+    } else {
+      res.status(200).json({ status: "fail", data: "Invalid OTP" });
+    }
+  } catch (error) {
+    res.status(400).json({ status: "fail", data: err });
+  }
+};
+
+// recover reset password
+
+exports.RecoverResetPass = async (req, res) => {
+  let email = req.body["email"];
+  let OTP = req.body["OTP"];
+  let newPass = req.body["password"];
+
+  try {
+    let optUsed = await OTPmodel.aggregate([
+      {
+        $match: { email: email, otp: OTP, status: 1 },
+      },
+      {
+        $count: "total",
+      },
+    ]);
+
+    if (optUsed.length > 0) {
+      let passUpdate = await UsersModel.updateOne(
+        { email: email },
+        { password: newPass }
+      );
+      res.status(200).json({ status: "success", data: passUpdate });
+    } else {
+      res.status(200).json({ status: "fail", data: "Invalid Request" });
+    }
+  } catch (error) {
+    res.status(400).json({ status: "fail", data: err });
+  }
 };
