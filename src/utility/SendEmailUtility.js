@@ -2,16 +2,16 @@ const nodemailer = require("nodemailer");
 
 const SendEmailUtility = async (EmailTo, EmailText, EmailSubject) => {
   let transporter = nodemailer.createTransport({
-    service: "gmail",
-    host: "smtp.gmail.com",
+    host: "smtp.mailtrap.io",
+    port: 2525,
     auth: {
-      user: "sirazgun@gmail.com",
-      pass: "sirajul@123",
+      user: "c04fd44bdc4303",
+      pass: "cb5099087237f3",
     },
   });
 
   let mailOptions = {
-    from: "Task Manager Sirajul <sirazgun@gmail.com>",
+    from: "Task Manager Sirajul <iamsiraj13@outlook.com>",
     to: EmailTo,
     subject: EmailSubject,
     text: EmailText,
