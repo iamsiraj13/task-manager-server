@@ -19,7 +19,7 @@ const mongoose = require("mongoose");
 
 app.use(
   cors({
-    origin: "https://task-manager-siraj.netlify.app",
+    origin: "https://task-manager-siraj.netlify.app/",
     methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
     preflightContinue: false,
     optionsSuccessStatus: 204,
