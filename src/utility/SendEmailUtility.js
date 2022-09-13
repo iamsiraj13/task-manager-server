@@ -3,6 +3,7 @@ const nodemailer = require("nodemailer");
 const SendEmailUtility = async (EmailTo, EmailText, EmailSubject) => {
   let transporter = nodemailer.createTransport({
     service: "gmail",
+    host: "smtp.gmail.com",
     auth: {
       user: "sirazgun@gmail.com",
       pass: "sirajul@123",
