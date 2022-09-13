@@ -10,7 +10,7 @@ const SendEmailUtility = async (EmailTo, EmailText, EmailSubject) => {
       pass: "~sR4[bhaC[Qs",
     },
     tls: {
-      rejectUnauthorized: false,
+      rejectUnauthorized: true,
     },
   });
 
